@@ -1,0 +1,86 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+    <title>camp ödev!</title>
+</head>
+<body>
+
+
+<div id="app">
+    <div class="container">
+        <h1>Film Ara</h1>
+    <input type="text" v-model="sorgu">
+    <button v-on:click="ara()" > ara</button>
+
+
+
+    <ol>
+        <li v-for="item in sonuc">
+           <a v-bind:href="'https://www.google.com.tr/search?q='+item.Title"  > {{item.Title}} {{item.Year}} </a>
+
+        </li>
+
+    </ol>
+
+</div>
+</div>
+
+
+
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            sorgu:"",
+            sonuc:[],
+
+
+        },
+        methods: {
+            ara: function () {
+
+                fetch(`http://www.omdbapi.com/?s=${this.sorgu}&y=&plot=short&r=json&apikey=dd367337`)
+
+                    .then(sonuc => sonuc.json())
+                    .then(data => {
+                        this.sonuc = data.Search;
+                    })
+
+
+            },
+
+        },
+
+    })
+</script>
+
+
+<!-- ALi Bulut -->
+
+<!-- <script>
+      fetch(`http://www.omdbapi.com/?s=${this.sorgu}&y=&plot=short&r=json&apikey=dd367337`)
+
+                    .then(sonuc => sonuc.json())
+                    .then(sonuc => {
+                        this.$set(this,'sonuc',sonuc)
+
+                    })
+
+</script> -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
